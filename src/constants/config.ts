@@ -1,14 +1,16 @@
 import { Platform } from 'react-native';
+const PROD_URL = 'https://dz3sxqn64a.execute-api.us-east-1.amazonaws.com';
 
 const DEV_HOST = Platform.select({
-  android: 'http://10.0.2.2:8080',
-  ios: 'http://localhost:8080',
-  default: 'http://localhost:8080',
+  android: 'http://10.117.44.180:8082',
+  ios: 'http://localhost:8082',
+  default: 'http://localhost:8082',
 });
 
-export const API_BASE_URL = `${DEV_HOST}/api/v1`;
+const BASE = __DEV__ ? DEV_HOST : PROD_URL;
 
-export const FILE_HOST = DEV_HOST;
+export const API_BASE_URL   = `${BASE}/api/v1`;
+export const FILE_HOST      = BASE;
 
 export const REQUEST_TIMEOUT = 15000;
 

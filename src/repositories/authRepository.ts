@@ -6,7 +6,7 @@ import { LoginResponse } from '@/models/Auth';
 export const AuthRepository = {
   async login(credentials: LoginDTO): Promise<LoginResponse> {
     const { data } = await httpClient.post<LoginResponse>(
-      ENDPOINTS.auth.login,
+      ENDPOINTS.auth.login, 
       credentials,
     );
     return data;

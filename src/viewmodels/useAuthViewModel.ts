@@ -13,24 +13,27 @@ export function useAuthViewModel() {
 
   const login = useCallback(
     async (email: string, password: string): Promise<boolean> => {
-      setError(null);
-      const errors = validateLogin(email, password);
-      setFieldErrors(errors);
-      if (Object.keys(errors).length > 0) return false;
+        setError(null);
+        const errors = validateLogin(email, password);
+        setFieldErrors(errors);
+        if (Object.keys(errors).length > 0) return false;
 
-      setIsLoading(true);
-      try {
-        const { token } = await AuthRepository.login({ email, password });
-        await signIn(token);
-        return true;
-      } catch (e) {
-        setError((e as Error).message);
-        return false;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [signIn],
+        setIsLoading(true);
+        try {
+          // LOG TEMPORAL
+          console.log('Credenciales enviadas:', { email, password });
+
+          const { token } = await AuthRepository.login({ email, password });
+          await signIn(token);
+          return true;
+        } catch (e) {
+          setError((e as Error).message);
+          return false;
+        } finally {
+          setIsLoading(false);
+        }
+      },
+      [signIn],
   );
 
   const register = useCallback(
