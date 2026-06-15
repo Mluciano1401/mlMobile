@@ -7,7 +7,7 @@ const DEV_HOST = Platform.select({
   default: 'http://localhost:8082',
 });
 
-const BASE = __DEV__ ? DEV_HOST : PROD_URL;
+const BASE = PROD_URL;
 
 export const API_BASE_URL   = `${BASE}/api/v1`;
 export const FILE_HOST      = BASE;
