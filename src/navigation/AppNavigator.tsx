@@ -19,6 +19,7 @@ import DashboardScreen from '@/views/DashboardScreen';
 import UsersListScreen from '@/views/users/UsersListScreen';
 import UserFormScreen from '@/views/users/UserFormScreen';
 import UploadScreen from '@/views/upload/UploadScreen';
+import NotificationScreen from '@/views/notification/NotificationScreen';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const UsersStack = createNativeStackNavigator<UsersStackParamList>();
@@ -71,6 +72,11 @@ function MainNavigator() {
         name="Upload"
         component={UploadScreen}
         options={{ title: 'Subir' }}
+      />
+       <Tabs.Screen
+        name="Notifications"
+        component={NotificationScreen}
+        options={{ title: 'Notificar' }}
       />
     </Tabs.Navigator>
   );

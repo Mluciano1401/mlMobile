@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-const PROD_URL = 'https://dz3sxqn64a.execute-api.us-east-1.amazonaws.com';
+const PROD_URL = 'https://zjwz1ykrp1.execute-api.us-east-1.amazonaws.com';
 
 const DEV_HOST = Platform.select({
   android: 'http://10.117.44.180:8082',
