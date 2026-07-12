@@ -7,7 +7,7 @@ const DEV_HOST = Platform.select({
   default: 'http://localhost:8082',
 });
 
-const BASE = PROD_URL;
+const BASE = 'http://127.0.0.1:61443';
 
 export const API_BASE_URL   = `${BASE}/api/v1`;
 export const FILE_HOST      = BASE;

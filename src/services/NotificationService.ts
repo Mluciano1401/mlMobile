@@ -25,7 +25,7 @@ export async function sendNotification(
   req: SendNotificationRequest,
 ): Promise<SendNotificationResult> {
   // Cambia '/api/v1/notifications/send' por '/notifications/send' si tu API no usa prefijo.
-  const url = `${API_BASE_URL}/api/v1/notifications/send`;
+  const url = `${API_BASE_URL}/notifications/send`;
 
   const response = await fetch(url, {
     method: 'POST',

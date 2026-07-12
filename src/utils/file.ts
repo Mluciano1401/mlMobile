@@ -1,5 +1,5 @@
-import { launchImageLibrary } from 'react-native-image-picker';
-import DocumentPicker from 'react-native-document-picker';
+import * as ImagePicker from 'expo-image-picker';
+import * as DocumentPicker from 'expo-document-picker';
 import { PickedFile } from '@/models/FileUpload';
 import { FILE_HOST } from '@/constants/config';
 
@@ -13,38 +13,38 @@ export const toAbsoluteUrl = (relativeUrl: string): string =>
   `${FILE_HOST}${relativeUrl}`;
 
 export const pickImage = async (): Promise<PickedFile | null> => {
-  const result = await launchImageLibrary({
-    mediaType: 'photo',
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
     quality: 0.8,
   });
 
-  if (result.didCancel || !result.assets || result.assets.length === 0) {
+  if (result.canceled || result.assets.length === 0) {
     return null;
   }
 
   const asset = result.assets[0];
   return {
-    uri: asset.uri ?? '',
+    uri: asset.uri,
     name: asset.fileName ?? `image_${Date.now()}.jpg`,
-    type: asset.type ?? 'image/jpeg',
+    type: asset.mimeType ?? 'image/jpeg',
     size: asset.fileSize ?? 0,
   };
 };
 
 export const pickDocument = async (): Promise<PickedFile | null> => {
-  try {
-    const doc = await DocumentPicker.pickSingle({
-      type: [DocumentPicker.types.images, DocumentPicker.types.pdf],
-    });
+  const result = await DocumentPicker.getDocumentAsync({
+    type: ['image/*', 'application/pdf'],
+  });
 
-    return {
-      uri: doc.uri,
-      name: doc.name ?? `doc_${Date.now()}`,
-      type: doc.type ?? 'application/octet-stream',
-      size: doc.size ?? 0,
-    };
-  } catch (err) {
-    if (DocumentPicker.isCancel(err)) return null;
-    throw err;
+  if (result.canceled || result.assets.length === 0) {
+    return null;
   }
+
+  const asset = result.assets[0];
+  return {
+    uri: asset.uri,
+    name: asset.name ?? `doc_${Date.now()}`,
+    type: asset.mimeType ?? 'application/octet-stream',
+    size: asset.size ?? 0,
+  };
 };
